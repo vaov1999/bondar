@@ -1,50 +1,59 @@
 <template>
   <aside v-if="$store.state.product.isVisibleSidebarDesktop" class="sidebar">
     <div class="sidebar__social">
-      <a class="sidebar__social-link">
+      <a class="sidebar__social-link v-btn">
         <img src="../assets/icons/instagram.svg" alt="Instagram" />
       </a>
-      <a class="sidebar__social-link">
+      <a class="sidebar__social-link v-btn">
         <img src="../assets/icons/facebook.svg" alt="Facebook" />
       </a>
-      <a class="sidebar__social-link">
+      <a class="sidebar__social-link v-btn">
         <img src="../assets/icons/youtube.svg" alt="Youtube" />
       </a>
-      <a class="sidebar__social-link">
+      <a class="sidebar__social-link v-btn">
         <img src="../assets/icons/telegram.svg" alt="Telegram" />
       </a>
-      <a class="sidebar__social-link">
+      <a class="sidebar__social-link v-btn">
         <img src="../assets/icons/viber.svg" alt="Viber" />
       </a>
-      <a class="sidebar__social-link">
+      <a class="sidebar__social-link v-btn">
         <img src="../assets/icons/kyivstar.svg" alt="Kyivstar" />
       </a>
-      <a class="sidebar__social-link">
+      <a class="sidebar__social-link v-btn">
         <img src="../assets/icons/vodafone.svg" alt="Vodafone" />
       </a>
     </div>
 
-    <div class="sidebar__price">
-      <label class="sidebar__price-title"
-        >Цена
-        <input type="number" />
-      </label>
-      <input class="sidebar__range" type="range" min="1" max="2500" />
-    </div>
-    <v-expansion-panels style="padding-top: 20px;">
+    <h2 class="sidebar__title-filter">
+      Фильтр продукиции<v-icon>filter_list</v-icon>
+    </h2>
+
+    <Slider />
+
+    <v-expansion-panels multiple style="padding: 20px 0">
       <v-expansion-panel>
         <v-expansion-panel-header>
-          <v-icon style="flex: 0 0 auto; padding-right: 10px;">sort</v-icon>
+          По наличию
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-radio-group>
+            <v-radio
+              v-for="i in $store.state.product.availabilityMode"
+              :key="i.title"
+              :label="i.title"
+              @click="$store.commit('toggleAvailabilityMode', i.title)"
+            ></v-radio>
+          </v-radio-group>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
           Сортировать по
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           цене
         </v-expansion-panel-content>
       </v-expansion-panel>
-    </v-expansion-panels>
-
-    <v-expansion-panels multiple style="padding: 20px 0">
-      <h2 class="sidebar__title-filter">Фильтр <v-icon>filter_list</v-icon></h2>
       <v-expansion-panel>
         <v-expansion-panel-header>Виды произведений</v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -53,6 +62,8 @@
             v-for="product in $store.state.product.categories"
             :key="product.getter"
             :label="product.title"
+            v-model="product.isChosen"
+            @click="$store.commit('toggleCategories', product.getter)"
           ></v-checkbox>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -64,6 +75,8 @@
             v-for="product in $store.state.product.prints"
             :key="product.getter"
             :label="product.title"
+            v-model="product.isChosen"
+            @click="$store.commit('togglePrints', product.getter)"
           ></v-checkbox>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -75,6 +88,8 @@
             v-for="product in $store.state.product.fixation"
             :key="product.getter"
             :label="product.title"
+            v-model="product.isChosen"
+            @click="$store.commit('toggleFixation', product.getter)"
           ></v-checkbox>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -84,9 +99,10 @@
 
 <script>
 import gql from "graphql-tag";
-
+import Slider from "@/components/Slider";
 export default {
   name: "SidebarDesktop",
+  components: { Slider },
   data() {
     return {
       products: []
@@ -108,7 +124,7 @@ export default {
 
 <style lang="sass">
 .sidebar
-  width: 250px
+  width: 300px
   padding: 10px
   color: rgb(0,0,0, 0.7)
   flex-shrink: 0
@@ -139,7 +155,8 @@ export default {
   width: 100%
 
 .sidebar__title-filter
-  padding-bottom: 7px
+  text-align: center
+  padding-bottom: 20px
   font-size: 20px
 
 .v-input--selection-controls

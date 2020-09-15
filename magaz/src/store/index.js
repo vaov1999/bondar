@@ -6,8 +6,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     product: {
-      availability: true,
-      underPrice: 10000,
+      availabilityMode: {
+        all: { title: "Усі товари", isChosen: true },
+        available: { title: "Товари у наявності", isChosen: false },
+        notAvailable: { title: "Товари на заказ", isChosen: false }
+      },
+      minPrice: 0,
+      maxPrice: 2500,
       categories: [
         { getter: "sets", title: "Набори", isChosen: false },
         { getter: "panno", title: "Панно", isChosen: false },
@@ -63,6 +68,48 @@ export default new Vuex.Store({
     },
     toggleSidebarDesktop(state) {
       state.isVisibleSidebarDesktop = !state.isVisibleSidebarDesktop;
+    },
+    toggleCategories(state, payload) {
+      state.product.categories.forEach(i => {
+        if (i.getter === payload) {
+          state.product.categories.isChosen = !state.product.categories
+            .isChosen;
+        }
+      });
+    },
+    togglePrints(state, payload) {
+      state.product.prints.forEach(i => {
+        if (i.getter === payload) {
+          state.product.prints.isChosen = !state.product.prints.isChosen;
+        }
+      });
+    },
+    toggleFixation(state, payload) {
+      state.product.fixation.forEach(i => {
+        if (i.getter === payload) {
+          state.product.fixation.isChosen = !state.product.fixation.isChosen;
+        }
+      });
+    },
+    toggleAvailability(state) {
+      state.product.availability = !state.product.availability;
+    },
+    toggleIsAllProductsVisible(state) {
+      state.product.isAllProductsVisible = !state.product.isAllProductsVisible;
+    },
+    changePrice(state, payload) {
+      state.product.minPrice = payload[0];
+      state.product.maxPrice = payload[1];
+      console.log(state.product.minPrice, state.product.maxPrice);
+    },
+    toggleAvailabilityMode(state, payload) {
+      Object.values(state.product.availabilityMode).forEach(i => {
+        if (i.title === payload) {
+          return (i.isChosen = true);
+        } else {
+          return (i.isChosen = false);
+        }
+      });
     }
   },
   actions: {},

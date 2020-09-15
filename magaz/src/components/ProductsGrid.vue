@@ -39,17 +39,22 @@ export default {
   },
   computed: {
     filtered: function() {
-      const state = this.$store;
+      const store = this.$store;
       return this.products.filter(function(i) {
         return (
-          i.availability === state.state.product.availability &&
-          i.price <= state.state.product.underPrice &&
-          (state.getters.chosenCategories.length === 0 ||
-            state.getters.chosenCategories.includes(i.categories)) &&
-          (state.getters.chosenFixation.length === 0 ||
-            state.getters.chosenFixation.includes(i.fixation)) &&
-          (state.getters.chosenPrints.length === 0 ||
-            state.getters.chosenPrints.includes(i.prints))
+          (store.state.product.availabilityMode.all.isChosen ||
+            (i.availability &&
+              store.state.product.availabilityMode.available.isChosen) ||
+            (!i.availability &&
+              store.state.product.availabilityMode.notAvailable.isChosen)) &&
+          i.price <= store.state.product.maxPrice &&
+          i.price >= store.state.product.minPrice &&
+          (store.getters.chosenCategories.length === 0 ||
+            store.getters.chosenCategories.includes(i.categories)) &&
+          (store.getters.chosenFixation.length === 0 ||
+            store.getters.chosenFixation.includes(i.fixation)) &&
+          (store.getters.chosenPrints.length === 0 ||
+            store.getters.chosenPrints.includes(i.prints))
         );
       });
     }

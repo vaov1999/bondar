@@ -1,37 +1,62 @@
 <template>
-  <div class="grid">
-    <div v-if="$apollo.loading">Loading...</div>
-    <router-link
-      v-for="product in filtered"
-      :to="{ path: '/product/' + product.id }"
-      :key="product.id"
-      style="text-decoration: none !important;"
-    >
-      <div class="card">
-        <v-img
-          class="card__img"
-          aspect-ratio="1"
-          :src="'http://localhost:1337' + product.mainPhoto.url"
-        ></v-img>
-        <div class="card__content">
-          <h3 class="card__title">{{ product.title }}</h3>
-          <div class="card__price-line">
-            <span
-              >{{ product.price }}
-              <span style="font-size: 12px">грн</span></span
-            >
-            <v-btn class="card__buy-btn">Купить</v-btn>
+  <div>
+    <Chips></Chips>
+    <div @click="$store.commit('toggleFilter', 'Друге')">123123123</div>
+    <div class="grid">
+      <v-sheet
+        v-if="$apollo.loading"
+        style="display: flex; justify-content: center; flex-wrap: wrap;"
+      >
+        <v-skeleton-loader
+          v-for="i in 24"
+          :key="i"
+          width="220"
+          height="360"
+          type="image, list-item-three-line"
+          style="margin: 0 10px"
+        >
+        </v-skeleton-loader>
+      </v-sheet>
+      <router-link
+        v-for="product in filtered"
+        :to="{ path: '/product/' + product.id }"
+        :key="product.id"
+        style="text-decoration: none !important;"
+      >
+        <div class="card">
+          <v-img
+            class="card__img"
+            aspect-ratio="1"
+            :src="'http://localhost:1337' + product.mainPhoto.url"
+          ></v-img>
+          <div class="card__content">
+            <h3 class="card__title">{{ product.title }}</h3>
+            <div class="card__price-line">
+              <span
+                >{{ product.price }}
+                <span style="font-size: 12px">грн</span></span
+              >
+              <v-btn class="card__buy-btn">Купить</v-btn>
+            </div>
           </div>
         </div>
+      </router-link>
+      <div class="card">
+        <h3>покищо це все, скоро будуть нові роботи</h3>
       </div>
-    </router-link>
+      <div v-if="filtered.length === 0">
+        нажаль у нас нема роботи яку ви шукаєте(
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import gql from "graphql-tag";
+import Chips from "@/components/Chips";
 export default {
   name: "ProductsGrid",
+  components: { Chips },
   data() {
     return {
       products: []
@@ -92,7 +117,7 @@ export default {
 .card
   width: 220px
   box-shadow: rgb(0,0,0, 0.2) 5px 5px 10px
-  margin: 15px
+  margin: 10px 10px
   border-radius: 15px
 
 .card__img

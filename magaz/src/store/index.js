@@ -69,25 +69,26 @@ export default new Vuex.Store({
     toggleSidebarDesktop(state) {
       state.isVisibleSidebarDesktop = !state.isVisibleSidebarDesktop;
     },
-    toggleCategories(state, payload) {
+    toggleFilter(state, payload) {
+      console.log("toggleFilter =", payload);
       state.product.categories.forEach(i => {
-        if (i.getter === payload) {
+        if (i.title === payload) {
+          console.log("before =", state.product.categories.isChosen);
           state.product.categories.isChosen = !state.product.categories
             .isChosen;
+          console.log("after", state.product.categories.isChosen);
         }
       });
-    },
-    togglePrints(state, payload) {
       state.product.prints.forEach(i => {
-        if (i.getter === payload) {
-          state.product.prints.isChosen = !state.product.prints.isChosen;
+        if (i.title === payload) {
+          return (state.product.prints.isChosen = !state.product.prints
+            .isChosen);
         }
       });
-    },
-    toggleFixation(state, payload) {
       state.product.fixation.forEach(i => {
-        if (i.getter === payload) {
-          state.product.fixation.isChosen = !state.product.fixation.isChosen;
+        if (i.title === payload) {
+          return (state.product.fixation.isChosen = !state.product.fixation
+            .isChosen);
         }
       });
     },
@@ -100,7 +101,6 @@ export default new Vuex.Store({
     changePrice(state, payload) {
       state.product.minPrice = payload[0];
       state.product.maxPrice = payload[1];
-      console.log(state.product.minPrice, state.product.maxPrice);
     },
     toggleAvailabilityMode(state, payload) {
       Object.values(state.product.availabilityMode).forEach(i => {

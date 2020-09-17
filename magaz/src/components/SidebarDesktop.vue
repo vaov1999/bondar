@@ -63,7 +63,7 @@
             :key="product.getter"
             :label="product.title"
             v-model="product.isChosen"
-            @click="$store.commit('toggleCategories', product.getter)"
+            @click="$store.commit('toggleFilter', product.title)"
           ></v-checkbox>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -76,7 +76,7 @@
             :key="product.getter"
             :label="product.title"
             v-model="product.isChosen"
-            @click="$store.commit('togglePrints', product.getter)"
+            @click="$store.commit('toggleFilter', product.title)"
           ></v-checkbox>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -89,7 +89,7 @@
             :key="product.getter"
             :label="product.title"
             v-model="product.isChosen"
-            @click="$store.commit('toggleFixation', product.getter)"
+            @click="$store.commit('toggleFilter', product.title)"
           ></v-checkbox>
         </v-expansion-panel-content>
       </v-expansion-panel>

@@ -34,10 +34,10 @@ export default new Vuex.Store({
         { getter: "hohloma", title: "Хохлома", isChosen: false },
         { getter: "gzel", title: "Гжель", isChosen: false },
         { getter: "another", title: "Друге", isChosen: false }
-      ],
-      isVisibleSidebar: false,
-      isVisibleSidebarDesktop: true
-    }
+      ]
+    },
+    isVisibleSidebar: false,
+    isVisibleSidebarDesktop: true
   },
   getters: {
     chosenCategories: function(state) {
@@ -91,12 +91,6 @@ export default new Vuex.Store({
             .isChosen);
         }
       });
-    },
-    toggleAvailability(state) {
-      state.product.availability = !state.product.availability;
-    },
-    toggleIsAllProductsVisible(state) {
-      state.product.isAllProductsVisible = !state.product.isAllProductsVisible;
     },
     changePrice(state, payload) {
       state.product.minPrice = payload[0];

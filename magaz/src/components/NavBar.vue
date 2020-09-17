@@ -70,12 +70,7 @@
 
 <script>
 export default {
-  name: "Nav",
-  data() {
-    return {
-      isVisibleSidebar: true
-    };
-  }
+  name: "Nav"
 };
 </script>
 

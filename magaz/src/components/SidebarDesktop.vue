@@ -1,5 +1,5 @@
 <template>
-  <aside v-if="$store.state.product.isVisibleSidebarDesktop" class="sidebar">
+  <aside v-if="$store.state.isVisibleSidebarDesktop" class="sidebar">
     <div class="sidebar__social">
       <a class="sidebar__social-link v-btn">
         <img src="../assets/icons/instagram.svg" alt="Instagram" />

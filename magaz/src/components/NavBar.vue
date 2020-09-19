@@ -15,14 +15,27 @@
         <span>Главная</span>
         <v-icon>home</v-icon>
       </v-btn>
-      <v-btn class="nav__button nav__search-btn">
+      <v-btn
+        class="nav__button nav__response-btn"
+        @click="$store.commit('toggleVisibleSidebarFilter')"
+      >
+        <span>Фильтр</span>
+        <v-icon>filter_list</v-icon>
+      </v-btn>
+      <v-btn
+        class="nav__button nav__search-btn"
+        @click="$store.commit('toggleVisibleSearchBar')"
+      >
         <span>Поиск</span>
         <v-icon>search</v-icon>
       </v-btn>
+
       <v-text-field
-        class="nav__search"
+        class="nav__search-input"
         label="Поиск"
         append-icon="search"
+        v-model="searchString"
+        @input="$store.commit('changeSearchString', searchString)"
       ></v-text-field>
 
       <div class="nav__links">
@@ -32,45 +45,37 @@
         <router-link class="nav__link" to="/">Помощь</router-link>
       </div>
 
-      <v-btn class="nav__button nav__btn-response">
-        <span>Сетка</span>
-        <v-icon>view_list</v-icon>
-      </v-btn>
-      <v-btn class="nav__button nav__btn-response">
-        <span>Фильтр</span>
-        <v-icon>filter_list</v-icon>
-      </v-btn>
-      <v-btn class="nav__button nav__btn-response">
-        <span>Сортировка</span>
-        <v-icon>sort</v-icon>
-      </v-btn>
       <v-btn class="nav__button">
         <span>Корзина</span>
         <v-icon>shopping_basket</v-icon>
       </v-btn>
     </v-bottom-navigation>
-
-    <v-bottom-navigation class="nav__buttons-addition">
-      <v-btn class="nav__button">
-        <span>Сетка</span>
-        <v-icon>view_list</v-icon>
+    <div class="nav__search-bar" v-if="$store.state.isVisibleSearchBar">
+      <v-text-field
+        label="Поиск"
+        append-icon="search"
+        v-model="searchString"
+        @input="$store.commit('changeSearchString', searchString)"
+      ></v-text-field>
+      <v-btn
+        style="margin-left: 10px;"
+        icon
+        @click="$store.commit('toggleVisibleSearchBar')"
+      >
+        <v-icon>close</v-icon>
       </v-btn>
-      <v-btn class="nav__button">
-        <span>Фильтр</span>
-        <v-icon>filter_list</v-icon>
-      </v-btn>
-      <v-btn class="nav__button">
-        <span>Сортировка</span>
-        <v-icon>sort</v-icon>
-      </v-btn>
-      <div class="nav__sort-type">От дешёвых</div>
-    </v-bottom-navigation>
+    </div>
   </nav>
 </template>
 
 <script>
 export default {
-  name: "Nav"
+  name: "Nav",
+  data: function() {
+    return {
+      searchString: ""
+    };
+  }
 };
 </script>
 
@@ -92,15 +97,6 @@ export default {
   background: transparent !important
   justify-content: space-between !important
   padding: 0 10px !important
-
-.nav__buttons-addition
-  display: none !important
-  position: fixed !important
-  top: 55px
-  left: 0
-  width: 100% !important
-  justify-content: space-around !important
-  height: 55px !important
 
 .nav__button
   padding: 0 5px !important
@@ -133,39 +129,54 @@ export default {
   text-decoration: none
   color: rgba(0, 0, 0, 0.6) !important
 
-.nav__search
+.nav__search-input
   margin: 0 !important
   padding: 12px 20px 0 !important
 
 .nav__link:hover
   text-decoration: underline
 
-.burger-mobile, .nav__btn-response, .nav__search-btn
+.burger-mobile, .nav__search-btn, .nav__response-btn
   display: none !important
 
+.nav__search-bar
+  display: flex
+  justify-content: flex-end
+  align-items: center
+  position: fixed
+  top: 70px
+  right: 10px
+  z-index: 1000
+  background: #fff
+  border-radius: 5px
+  padding: 0 10px
+  box-shadow: #999 0 0 10px
+
 @media only screen and (max-width: 1000px)
-  .burger-mobile, .nav__search-btn, .nav__btn-response
+  .nav__search-btn, .nav__response-btn
     display: block !important
 
-  .burger-desk, .nav__links, .nav__search
+  .burger-desk, .nav__search-input
     display: none !important
 
+@media only screen and (max-width: 800px)
+  .nav__links,.nav__search-btn, .nav__search-bar
+    display: none !important
+
+  .nav__search-input, .burger-mobile
+    display: block !important
 
 @media only screen and (max-width: 600px)
-  .nav__buttons-addition
+  .nav__button
+    padding: 0 !important
+    min-width: 50px !important
+
+  .nav__buttons-addition, .nav__search-bar
     display: flex !important
 
-  .nav__search
-    display: block !important
-
-  .nav__btn-response, .nav__search-btn
+  .nav__search-input, .nav__links
     display: none !important
 
-
-@media only screen and (max-width: 425px)
-  .nav__search
-    display: none !important
-
-  .nav__search-btn
+  .nav__search-btn, .nav__response-btn
     display: block !important
 </style>

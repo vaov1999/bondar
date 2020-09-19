@@ -1,7 +1,6 @@
 <template>
   <div>
     <Chips></Chips>
-    <div @click="$store.commit('toggleFilter', 'Друге')">123123123</div>
     <div class="grid">
       <v-sheet
         v-if="$apollo.loading"
@@ -65,23 +64,33 @@ export default {
   computed: {
     filtered: function() {
       const store = this.$store;
-      return this.products.filter(function(i) {
-        return (
-          (store.state.product.availabilityMode.all.isChosen ||
-            (i.availability &&
-              store.state.product.availabilityMode.available.isChosen) ||
-            (!i.availability &&
-              store.state.product.availabilityMode.notAvailable.isChosen)) &&
-          i.price <= store.state.product.maxPrice &&
-          i.price >= store.state.product.minPrice &&
-          (store.getters.chosenCategories.length === 0 ||
-            store.getters.chosenCategories.includes(i.categories)) &&
-          (store.getters.chosenFixation.length === 0 ||
-            store.getters.chosenFixation.includes(i.fixation)) &&
-          (store.getters.chosenPrints.length === 0 ||
-            store.getters.chosenPrints.includes(i.prints))
+      if (store.state.product.searchString.length > 0) {
+        return this.products.filter(
+          i =>
+            i.title
+              .toLowerCase()
+              .trim()
+              .indexOf(store.state.product.searchString) !== -1
         );
-      });
+      } else {
+        return this.products.filter(function(i) {
+          return (
+            (store.state.product.availabilityMode.all.isChosen ||
+              (i.availability &&
+                store.state.product.availabilityMode.available.isChosen) ||
+              (!i.availability &&
+                store.state.product.availabilityMode.notAvailable.isChosen)) &&
+            i.price <= store.state.product.maxPrice &&
+            i.price >= store.state.product.minPrice &&
+            (store.getters.chosenCategories.length === 0 ||
+              store.getters.chosenCategories.includes(i.categories)) &&
+            (store.getters.chosenFixation.length === 0 ||
+              store.getters.chosenFixation.includes(i.fixation)) &&
+            (store.getters.chosenPrints.length === 0 ||
+              store.getters.chosenPrints.includes(i.prints))
+          );
+        });
+      }
     }
   },
   apollo: {

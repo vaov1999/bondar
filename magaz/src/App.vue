@@ -13,7 +13,7 @@ import NavBar from "./components/NavBar.vue";
 import SidebarMobile from "./components/SidebarMobile";
 
 export default {
-  components: { SidebarMobile, NavBar: NavBar }
+  components: { SidebarMobile, NavBar }
 };
 </script>
 
@@ -23,8 +23,4 @@ export default {
 main
   margin-top: 55px
   color: rgba(0, 0, 0, 0.87)
-
-@media screen and (max-width: 600px)
-  main
-    margin-top: 110px
 </style>

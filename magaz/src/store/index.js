@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     product: {
+      searchString: "".trim().toLowerCase(),
       availabilityMode: {
         all: { title: "Усі товари", isChosen: true },
         available: { title: "Товари у наявності", isChosen: false },
@@ -37,7 +38,9 @@ export default new Vuex.Store({
       ]
     },
     isVisibleSidebar: false,
-    isVisibleSidebarDesktop: true
+    isVisibleSidebarDesktop: true,
+    isVisibleSidebarFilter: false,
+    isVisibleSearchBar: false
   },
   getters: {
     chosenCategories: function(state) {
@@ -69,14 +72,17 @@ export default new Vuex.Store({
     toggleSidebarDesktop(state) {
       state.isVisibleSidebarDesktop = !state.isVisibleSidebarDesktop;
     },
+    toggleVisibleSidebarFilter(state) {
+      state.isVisibleSidebarFilter = !state.isVisibleSidebarFilter;
+    },
+    toggleVisibleSearchBar(state) {
+      state.isVisibleSearchBar = !state.isVisibleSearchBar;
+    },
     toggleFilter(state, payload) {
-      console.log("toggleFilter =", payload);
       state.product.categories.forEach(i => {
         if (i.title === payload) {
-          console.log("before =", state.product.categories.isChosen);
           state.product.categories.isChosen = !state.product.categories
             .isChosen;
-          console.log("after", state.product.categories.isChosen);
         }
       });
       state.product.prints.forEach(i => {
@@ -95,6 +101,9 @@ export default new Vuex.Store({
     changePrice(state, payload) {
       state.product.minPrice = payload[0];
       state.product.maxPrice = payload[1];
+    },
+    changeSearchString(state, payload) {
+      state.product.searchString = payload;
     },
     toggleAvailabilityMode(state, payload) {
       Object.values(state.product.availabilityMode).forEach(i => {

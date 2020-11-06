@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Chips />
+    <Chips></Chips>
     <div class="grid">
       <v-sheet
-        v-if="$apollo.loading"
+        v-if="$fetchState.pending"
         style="display: flex; justify-content: center; flex-wrap: wrap"
       >
         <v-skeleton-loader
@@ -18,8 +18,8 @@
       </v-sheet>
 
       <router-link
-        v-for="product in filtered"
-        :key="product.id"
+        v-for="product in 24"
+        :key="product"
         :to="{ path: '/product/' + product.id }"
         style="text-decoration: none !important; color: inherit !important"
       >
@@ -29,17 +29,14 @@
               <v-img
                 class="card__img"
                 aspect-ratio="1"
-                :src="'http://localhost:1337' + product.mainPhoto.url"
+                src="/print.jpg"
               ></v-img>
               <div class="card__content">
-                <h3 class="card__title">{{ product.title }}</h3>
+                <h3 class="card__title">Декоративний заєць</h3>
                 <div class="card__price-line">
-                  <span
-                    >{{ product.price }}
-                    <span style="font-size: 12px">грн</span></span
-                  >
+                  <span>250 <span style="font-size: 12px">грн</span></span>
                   <div
-                    v-show="product.availability"
+                    v-show="true"
                     class="card__availability card__availability--response"
                   >
                     <span style="color: rgb(63, 214, 82)">Є у наяві</span>
@@ -48,7 +45,7 @@
                     >
                   </div>
                   <div
-                    v-show="!product.availability"
+                    v-show="false"
                     class="card__availability card__availability--response"
                   >
                     <span>Під заказ</span>
@@ -62,17 +59,17 @@
             </div>
           </template>
           <div>
-            <h3 style="text-align: center">{{ product.title }}</h3>
+            <h3 style="text-align: center">Декоративний заєць</h3>
             <h4>
-              {{ product.availability ? 'Есть в наличии' : 'Под заказ' }}
+              {{ true ? 'Есть в наличии' : 'Под заказ' }}
             </h4>
-            <h4>Категория товара: {{ product.categories }}</h4>
-            <h4>Способ фиксации: {{ product.categories }}</h4>
-            <h4>Вид росписи: {{ product.categories }}</h4>
+            <h4>Категория товара: Доска</h4>
+            <h4>Способ фиксации: На магнитах</h4>
+            <h4>Вид росписи: Петреківський розпис</h4>
           </div>
         </v-tooltip>
       </router-link>
-      <div v-if="filtered.length === 0">
+      <div v-if="products.length === 0">
         нажаль у нас нема роботи яку ви шукаєте(
       </div>
     </div>
@@ -80,75 +77,21 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
+const url = 'http://localhost:1337/products'
 export default {
+  async fetch() {
+    const my = this
+    await fetch(url)
+      .then((res) => res.json())
+      .then((res) => my.$store.commit('fetchProducts', res))
+  },
   data() {
     return {
       products: [],
     }
   },
-  computed: {
-    filtered() {
-      const store = this.$store
-      if (store.state.product.searchString.length > 0) {
-        return this.products.filter((i) =>
-          i.title
-            .toLowerCase()
-            .trim()
-            .includes(store.state.product.searchString)
-        )
-      } else {
-        return this.products
-          .filter(function (i) {
-            return (
-              (store.state.product.availabilityMode.all.isChosen ||
-                (i.availability &&
-                  store.state.product.availabilityMode.available.isChosen) ||
-                (!i.availability &&
-                  store.state.product.availabilityMode.notAvailable
-                    .isChosen)) &&
-              i.price <= store.state.product.maxPrice &&
-              i.price >= store.state.product.minPrice &&
-              (store.getters.chosenCategories.length === 0 ||
-                store.getters.chosenCategories.includes(i.categories)) &&
-              (store.getters.chosenFixation.length === 0 ||
-                store.getters.chosenFixation.includes(i.fixation)) &&
-              (store.getters.chosenPrints.length === 0 ||
-                store.getters.chosenPrints.includes(i.prints))
-            )
-          })
-          .sort(function (a, b) {
-            if (store.state.product.sortMode.fromMax.isChosen) {
-              if (a.price > b.price) return -1
-              if (a.price < b.price) return 1
-              if (a.price === b.price) return 0
-            }
-            if (store.state.product.sortMode.fromMin.isChosen) {
-              if (a.price > b.price) return 1
-              if (a.price < b.price) return -1
-              if (a.price === b.price) return 0
-            }
-          })
-      }
-    },
-  },
-  apollo: {
-    products: gql`
-      query Products {
-        products {
-          id
-          availability
-          title
-          fixation
-          categories
-          price
-          prints
-          mainPhoto {
-            url
-          }
-        }
-      }
-    `,
+  mounted() {
+    console.dir(this.products)
   },
 }
 </script>

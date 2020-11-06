@@ -11,6 +11,8 @@
     "lint": "npm run lint:js"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.12.2",
+    "graphql": "^15.4.0",
     "nuxt": "^2.14.0"
   },
   "devDependencies": {

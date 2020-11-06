@@ -1,4 +1,5 @@
 export const state = () => ({
+  products: [],
   product: {
     searchString: ''.trim().toLowerCase(),
     availabilityMode: {
@@ -43,6 +44,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  fetchProducts(state, products) {
+    state.products = products
+  },
   toggleSidebar(state) {
     state.isVisibleSidebar = !state.isVisibleSidebar
   },

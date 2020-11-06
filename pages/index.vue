@@ -6,6 +6,7 @@
       <div v-if="false" style="display: block !important">
         <Carousel />
       </div>
+      <ProductsGrid />
     </div>
   </div>
 </template>

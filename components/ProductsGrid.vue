@@ -18,8 +18,8 @@
       </v-sheet>
 
       <router-link
-        v-for="product in 24"
-        :key="product"
+        v-for="(product, index) in this.$store.state.products"
+        :key="index"
         :to="{ path: '/product/' + product.id }"
         style="text-decoration: none !important; color: inherit !important"
       >
@@ -79,11 +79,10 @@
 <script>
 const url = 'http://localhost:1337/products'
 export default {
-  async fetch() {
-    const my = this
-    await fetch(url)
+  fetch() {
+    fetch(url)
       .then((res) => res.json())
-      .then((res) => my.$store.commit('fetchProducts', res))
+      .then((res) => this.$store.commit('fetchProducts', res))
   },
   data() {
     return {
@@ -91,7 +90,7 @@ export default {
     }
   },
   mounted() {
-    console.dir(this.products)
+    this.products = this.$store.state.products
   },
 }
 </script>

@@ -25,9 +25,7 @@ export default {
       this.$store.state.product.fixation
         .filter((i) => i.isChosen)
         .forEach((i) => array.push(i.title))
-      this.$store.state.product.prints
-        .filter((i) => i.isChosen)
-        .forEach((i) => array.push(i.title))
+      this.$store.state.product.prints.filter((i) => i.isChosen).forEach((i) => array.push(i.title))
       return array
     },
   },

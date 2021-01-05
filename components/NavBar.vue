@@ -2,12 +2,12 @@
   <nav class="nav">
     <v-app-bar-nav-icon
       class="burger-mobile"
-      @click="$store.commit('toggleSidebar')"
+      @click="$store.commit('togglers/toggleSidebar')"
     ></v-app-bar-nav-icon>
 
     <v-app-bar-nav-icon
       class="burger-desk"
-      @click="$store.commit('toggleSidebarDesktop')"
+      @click="$store.commit('togglers/toggleSidebarDesktop')"
     ></v-app-bar-nav-icon>
 
     <v-bottom-navigation class="nav__buttons">
@@ -35,14 +35,14 @@
       </v-btn>
       <v-btn
         class="nav__button nav__response-btn"
-        @click="$store.commit('toggleVisibleSidebarFilter')"
+        @click="$store.commit('togglers/toggleVisibleSidebarFilter')"
       >
         <span>Фильтр</span>
         <v-icon>filter_list</v-icon>
       </v-btn>
       <v-btn
         class="nav__button nav__search-btn"
-        @click="$store.commit('toggleVisibleSearchBar')"
+        @click="$store.commit('togglers/toggleVisibleSearchBar')"
       >
         <span>Поиск</span>
         <v-icon>search</v-icon>
@@ -59,7 +59,7 @@
         <v-icon>shopping_basket</v-icon>
       </v-btn>
     </v-bottom-navigation>
-    <div v-if="$store.state.isVisibleSearchBar" class="nav__search-bar">
+    <div v-if="$store.state.togglers.isVisibleSearchBar" class="nav__search-bar">
       <v-text-field
         v-model="searchString"
         label="Поиск"
@@ -69,7 +69,7 @@
       <v-btn
         style="margin-left: 10px"
         icon
-        @click="$store.commit('toggleVisibleSearchBar')"
+        @click="$store.commit('togglers/toggleVisibleSearchBar')"
       >
         <v-icon>close</v-icon>
       </v-btn>

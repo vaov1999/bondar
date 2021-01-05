@@ -1,11 +1,5 @@
 <template>
-  <v-range-slider
-    v-model="range"
-    class="slider"
-    :min="min"
-    :max="max"
-    hide-details
-  >
+  <v-range-slider v-model="range" class="slider" :min="min" :max="max" hide-details>
     <template v-slot:prepend>
       <span class="slider__title">Ціна починається з</span>
       <div style="display: flex; align-items: center">
@@ -38,8 +32,7 @@
       </div>
       <v-btn
         v-if="
-          range[0] !== $store.state.product.minPrice ||
-          range[1] !== $store.state.product.maxPrice
+          range[0] !== $store.state.product.minPrice || range[1] !== $store.state.product.maxPrice
         "
         class="slider__accept"
         @click="$store.commit('changePrice', range)"
@@ -69,8 +62,8 @@ export default {
   flex-direction: column;
   padding: 10px 20px 15px;
   border-radius: 5px;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   margin: 0;
   background-color: #fff;
 }

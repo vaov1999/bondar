@@ -1,5 +1,5 @@
 <template>
-  <aside v-if="$store.state.isVisibleSidebarDesktop" class="sidebar">
+  <aside v-if="$store.state.togglers.isVisibleSidebarDesktop" class="sidebar">
     <div class="sidebar__social">
       <a class="sidebar__social-link v-btn">
         <img src="/icons/instagram.svg" alt="Instagram" />
@@ -24,9 +24,7 @@
       </a>
     </div>
 
-    <h2 class="sidebar__title-filter">
-      Фильтр продукиции<v-icon>filter_list</v-icon>
-    </h2>
+    <h2 class="sidebar__title-filter">Фильтр продукиции<v-icon>filter_list</v-icon></h2>
 
     <Slider />
     <Filters />
@@ -47,8 +45,8 @@
   width: 100%;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   margin: 10px 0 20px;
 }
 .sidebar__social-link {

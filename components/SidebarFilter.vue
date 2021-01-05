@@ -2,7 +2,7 @@
   <div class="sidebar-f">
     <div
       class="sidebar-f__close"
-      @click="$store.commit('toggleVisibleSidebarFilter')"
+      @click="$store.commit('togglers/toggleVisibleSidebarFilter')"
     ></div>
     <aside class="sidebar-f__wrap">
       <Slider />

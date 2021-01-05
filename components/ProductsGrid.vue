@@ -2,10 +2,7 @@
   <div>
     <Chips></Chips>
     <div class="grid">
-      <v-sheet
-        v-if="$fetchState.pending"
-        style="display: flex; justify-content: center; flex-wrap: wrap"
-      >
+      <v-sheet v-if="!products" style="display: flex; justify-content: center; flex-wrap: wrap">
         <v-skeleton-loader
           v-for="i in 24"
           :key="i"
@@ -16,27 +13,27 @@
         >
         </v-skeleton-loader>
       </v-sheet>
-
-      <router-link
-        v-for="(product, index) in this.$store.state.products"
+      <nuxt-link
+        v-for="(product, index) in $store.state.products"
         :key="index"
         :to="{ path: '/product/' + product.id }"
         style="text-decoration: none !important; color: inherit !important"
       >
         <v-tooltip bottom min-width="220">
           <template v-slot:activator="{ on, attrs }">
-            <div class="card" v-bind="attrs" v-on="on">
+            <div class="card" v-bind="attrs" aspect-ratio="1" v-on="on">
               <v-img
                 class="card__img"
                 aspect-ratio="1"
-                src="/print.jpg"
+                :src="`http://localhost:1337/products${product.miniMainPhoto.url}`"
+                :alt="product.title"
               ></v-img>
               <div class="card__content">
-                <h3 class="card__title">Декоративний заєць</h3>
+                <h3 class="card__title">{{ product.title }}</h3>
                 <div class="card__price-line">
-                  <span>250 <span style="font-size: 12px">грн</span></span>
+                  <span>{{ product.price }} <span style="font-size: 12px">грн</span></span>
                   <div
-                    v-show="true"
+                    v-show="product.availability"
                     class="card__availability card__availability--response"
                   >
                     <span style="color: rgb(63, 214, 82)">Є у наяві</span>
@@ -45,15 +42,13 @@
                     >
                   </div>
                   <div
-                    v-show="false"
+                    v-show="!product.availability"
                     class="card__availability card__availability--response"
                   >
                     <span>Під заказ</span>
                     <v-icon style="padding-left: 7px">event</v-icon>
                   </div>
-                  <v-btn icon class="card__buy-btn"
-                    ><v-icon>add_shopping_cart</v-icon></v-btn
-                  >
+                  <v-btn icon class="card__buy-btn"><v-icon>add_shopping_cart</v-icon></v-btn>
                 </div>
               </div>
             </div>
@@ -61,36 +56,36 @@
           <div>
             <h3 style="text-align: center">Декоративний заєць</h3>
             <h4>
-              {{ true ? 'Есть в наличии' : 'Под заказ' }}
+              {{ product.availability ? 'Есть в наличии' : 'Под заказ' }}
             </h4>
             <h4>Категория товара: Доска</h4>
             <h4>Способ фиксации: На магнитах</h4>
             <h4>Вид росписи: Петреківський розпис</h4>
           </div>
         </v-tooltip>
-      </router-link>
-      <div v-if="products.length === 0">
-        нажаль у нас нема роботи яку ви шукаєте(
-      </div>
+      </nuxt-link>
+      <div v-if="products.length === 0">нажаль у нас нема роботи яку ви шукаєте(</div>
     </div>
   </div>
 </template>
 
 <script>
-const url = 'http://localhost:1337/products'
+import { mapState, mapGetters } from 'vuex'
+
 export default {
-  fetch() {
-    fetch(url)
+  data() {
+    return {}
+  },
+  computed: {
+    ...mapState({
+      products: (state) => state.products,
+    }),
+    ...mapGetters(['filtered']),
+  },
+  created() {
+    fetch('http://localhost:1337/products')
       .then((res) => res.json())
       .then((res) => this.$store.commit('fetchProducts', res))
-  },
-  data() {
-    return {
-      products: [],
-    }
-  },
-  mounted() {
-    this.products = this.$store.state.products
   },
 }
 </script>

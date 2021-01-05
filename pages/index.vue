@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <SidebarDesktop />
-    <SidebarFilter v-if="$store.state.isVisibleSidebarFilter" />
+    <SidebarFilter v-if="$store.state.togglers.isVisibleSidebarFilter" />
     <div class="content">
       <div v-if="false" style="display: block !important">
         <Carousel />

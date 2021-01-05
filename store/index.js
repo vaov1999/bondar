@@ -37,27 +37,51 @@ export const state = () => ({
       { getter: 'another', title: 'Друге', isChosen: false },
     ],
   },
-  isVisibleSidebar: false,
-  isVisibleSidebarDesktop: true,
-  isVisibleSidebarFilter: false,
-  isVisibleSearchBar: false,
 })
+
+export const getters = {
+  filtered: (state) => {
+    if (state.product.searchString.length > 0) {
+      return this.products.filter((i) =>
+        i.title.toLowerCase().trim().includes(state.product.searchString)
+      )
+    } else {
+      return this.products
+        .filter(function (i) {
+          return (
+            (state.product.availabilityMode.all.isChosen ||
+              (i.availability && state.product.availabilityMode.available.isChosen) ||
+              (!i.availability && state.product.availabilityMode.notAvailable.isChosen)) &&
+            i.price <= state.product.maxPrice &&
+            i.price >= state.product.minPrice &&
+            (state.getters.chosenCategories.length === 0 ||
+              state.getters.chosenCategories.includes(i.categories)) &&
+            (state.getters.chosenFixation.length === 0 ||
+              state.getters.chosenFixation.includes(i.fixation)) &&
+            (state.getters.chosenPrints.length === 0 ||
+              state.getters.chosenPrints.includes(i.prints))
+          )
+        })
+        .sort(function (a, b) {
+          if (state.product.sortMode.fromMax.isChosen) {
+            if (a.price > b.price) return -1
+            if (a.price < b.price) return 1
+            if (a.price === b.price) return 0
+          }
+          if (state.product.sortMode.fromMin.isChosen) {
+            if (a.price > b.price) return 1
+            if (a.price < b.price) return -1
+            if (a.price === b.price) return 0
+          }
+        })
+    }
+  },
+}
 
 export const mutations = {
   fetchProducts(state, products) {
     state.products = products
-  },
-  toggleSidebar(state) {
-    state.isVisibleSidebar = !state.isVisibleSidebar
-  },
-  toggleSidebarDesktop(state) {
-    state.isVisibleSidebarDesktop = !state.isVisibleSidebarDesktop
-  },
-  toggleVisibleSidebarFilter(state) {
-    state.isVisibleSidebarFilter = !state.isVisibleSidebarFilter
-  },
-  toggleVisibleSearchBar(state) {
-    state.isVisibleSearchBar = !state.isVisibleSearchBar
+    console.log(products)
   },
   toggleFilter(state, payload) {
     state.product.categories.forEach((i) => {
@@ -72,8 +96,7 @@ export const mutations = {
     })
     state.product.fixation.forEach((i) => {
       if (i.title === payload) {
-        return (state.product.fixation.isChosen = !state.product.fixation
-          .isChosen)
+        return (state.product.fixation.isChosen = !state.product.fixation.isChosen)
       }
     })
   },

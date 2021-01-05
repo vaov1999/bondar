@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <NavBar />
-    <SidebarMobile v-if="$store.state.togglers.isVisibleSidebarMobile"></SidebarMobile>
+    <SidebarMobile v-if="$store.state.togglers.isVisibleSidebarMobile" />
     <main>
       <Nuxt />
     </main>

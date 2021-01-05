@@ -5,12 +5,12 @@ export const state = () => ({
     availabilityMode: {
       all: { title: 'Усі товари', isChosen: true },
       available: { title: 'Товари у наявності', isChosen: false },
-      notAvailable: { title: 'Товари на заказ', isChosen: false },
+      notAvailable: { title: 'Товари на заказ', isChosen: false }
     },
     sortMode: {
       default: { title: 'Случайно', isChosen: true },
       fromMin: { title: 'От самого доступного', isChosen: false },
-      fromMax: { title: 'От самого дорогого', isChosen: true },
+      fromMax: { title: 'От самого дорогого', isChosen: true }
     },
     minPrice: 0,
     maxPrice: 2500,
@@ -22,27 +22,27 @@ export const state = () => ({
       { getter: 'solfetnizi', title: 'Серветниці', isChosen: false },
       { getter: 'eggs', title: 'Яєчки', isChosen: false },
       { getter: 'metreshki', title: 'Матрешки', isChosen: false },
-      { getter: 'another', title: 'Друге', isChosen: false },
+      { getter: 'another', title: 'Друге', isChosen: false }
     ],
     fixation: [
       { getter: 'verevka', title: 'На мотузках', isChosen: false },
       { getter: 'magnit', title: 'На магнітах', isChosen: false },
       { getter: 'wholes', title: 'Отверстія', isChosen: false },
-      { getter: 'another', title: 'Друге', isChosen: false },
+      { getter: 'another', title: 'Друге', isChosen: false }
     ],
     prints: [
       { getter: 'petrikovka', title: 'Петриківка', isChosen: false },
       { getter: 'hohloma', title: 'Хохлома', isChosen: false },
       { getter: 'gzel', title: 'Гжель', isChosen: false },
-      { getter: 'another', title: 'Друге', isChosen: false },
-    ],
-  },
+      { getter: 'another', title: 'Друге', isChosen: false }
+    ]
+  }
 })
 
 export const getters = {
   filtered: (state) => {
     if (state.product.searchString.length > 0) {
-      return this.products.filter((i) =>
+      return this.products.filter(i =>
         i.title.toLowerCase().trim().includes(state.product.searchString)
       )
     } else {
@@ -64,26 +64,26 @@ export const getters = {
         })
         .sort(function (a, b) {
           if (state.product.sortMode.fromMax.isChosen) {
-            if (a.price > b.price) return -1
-            if (a.price < b.price) return 1
-            if (a.price === b.price) return 0
+            if (a.price > b.price) { return -1 }
+            if (a.price < b.price) { return 1 }
+            if (a.price === b.price) { return 0 }
           }
           if (state.product.sortMode.fromMin.isChosen) {
-            if (a.price > b.price) return 1
-            if (a.price < b.price) return -1
-            if (a.price === b.price) return 0
+            if (a.price > b.price) { return 1 }
+            if (a.price < b.price) { return -1 }
+            if (a.price === b.price) { return 0 }
           }
         })
     }
-  },
+  }
 }
 
 export const mutations = {
-  fetchProducts(state, products) {
+  fetchProducts (state, products) {
     state.products = products
     console.log(products)
   },
-  toggleFilter(state, payload) {
+  toggleFilter (state, payload) {
     state.product.categories.forEach((i) => {
       if (i.title === payload) {
         state.product.categories.isChosen = !state.product.categories.isChosen
@@ -100,14 +100,14 @@ export const mutations = {
       }
     })
   },
-  changePrice(state, payload) {
+  changePrice (state, payload) {
     state.product.minPrice = payload[0]
     state.product.maxPrice = payload[1]
   },
-  changeSearchString(state, payload) {
+  changeSearchString (state, payload) {
     state.product.searchString = payload
   },
-  toggleAvailabilityMode(state, payload) {
+  toggleAvailabilityMode (state, payload) {
     Object.values(state.product.availabilityMode).forEach((i) => {
       if (i.title === payload) {
         return (i.isChosen = true)
@@ -116,7 +116,7 @@ export const mutations = {
       }
     })
   },
-  toggleSortMode(state, payload) {
+  toggleSortMode (state, payload) {
     Object.values(state.product.sortMode).forEach((i) => {
       if (i.title === payload) {
         return (i.isChosen = true)
@@ -124,5 +124,5 @@ export const mutations = {
         return (i.isChosen = false)
       }
     })
-  },
+  }
 }

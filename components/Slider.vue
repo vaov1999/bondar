@@ -11,7 +11,7 @@
           type="number"
           style="width: 60px"
           @change="$set(range, 0, $event)"
-        ></v-text-field>
+        />
         <span style="font-size: 12px; padding-left: 5px">грн</span>
       </div>
     </template>
@@ -27,7 +27,7 @@
           type="number"
           style="width: 60px"
           @change="$set(range, 1, $event)"
-        ></v-text-field>
+        />
         <span style="font-size: 12px; padding-left: 5px">грн</span>
       </div>
       <v-btn
@@ -46,14 +46,14 @@
 <script>
 export default {
   name: 'Slider',
-  data() {
+  data () {
     return {
       min: this.$store.state.product.minPrice,
       max: this.$store.state.product.maxPrice,
       slider: 40,
-      range: [0, 2500],
+      range: [0, 2500]
     }
-  },
+  }
 }
 </script>
 

@@ -3,60 +3,84 @@
     <aside class="sidebar-m__wrap">
       <div class="sidebar-m__links">
         <v-btn class="sidebar-m__link-btn">
-          <router-link class="sidebar-m__link" to="/">Главная</router-link>
+          <router-link class="sidebar-m__link" to="/">
+            Главная
+          </router-link>
         </v-btn>
         <v-btn class="sidebar-m__link-btn">
-          <router-link class="sidebar-m__link" to="/">Автор</router-link>
+          <router-link class="sidebar-m__link" to="/">
+            Автор
+          </router-link>
         </v-btn>
         <v-btn class="sidebar-m__link-btn">
-          <router-link class="sidebar-m__link" to="/">Заказать</router-link>
+          <router-link class="sidebar-m__link" to="/">
+            Заказать
+          </router-link>
         </v-btn>
         <v-btn class="sidebar-m__link-btn">
-          <router-link class="sidebar-m__link" to="/">Контакты</router-link>
+          <router-link class="sidebar-m__link" to="/">
+            Контакты
+          </router-link>
         </v-btn>
         <v-btn class="sidebar-m__link-btn">
-          <router-link class="sidebar-m__link" to="/">Помощь</router-link>
+          <router-link class="sidebar-m__link" to="/">
+            Помощь
+          </router-link>
         </v-btn>
       </div>
       <div class="sidebar-m__contacts">
         <div class="sidebar-m__contact">
-          <img class="sidebar-m__contact-svg" src="/icons/kyivstar.svg" alt="Kyivstar" />
+          <img class="sidebar-m__contact-svg" src="/icons/kyivstar.svg" alt="Kyivstar">
           <span style="flex-grow: 2">066 599 3999</span>
-          <v-icon small>content_copy</v-icon>
+          <v-icon small>
+            content_copy
+          </v-icon>
         </div>
         <div class="sidebar-m__contact">
-          <img class="sidebar-m__contact-svg" src="/icons/vodafone.svg" alt="Vodafone" />
+          <img class="sidebar-m__contact-svg" src="/icons/vodafone.svg" alt="Vodafone">
           <span style="flex-grow: 2">066 599 3999</span>
-          <v-icon small>content_copy</v-icon>
+          <v-icon small>
+            content_copy
+          </v-icon>
         </div>
         <div class="sidebar-m__contact">
-          <img class="sidebar-m__contact-svg" src="/icons/telegram.svg" alt="Telegram" />
+          <img class="sidebar-m__contact-svg" src="/icons/telegram.svg" alt="Telegram">
           <span style="flex-grow: 2">@hmbond</span>
-          <v-icon small>content_copy</v-icon>
+          <v-icon small>
+            content_copy
+          </v-icon>
         </div>
         <div class="sidebar-m__contact">
-          <img class="sidebar-m__contact-svg" src="/icons/viber.svg" alt="Viber" />
+          <img class="sidebar-m__contact-svg" src="/icons/viber.svg" alt="Viber">
           <span style="flex-grow: 2">066 599 7377</span>
-          <v-icon small>content_copy</v-icon>
+          <v-icon small>
+            content_copy
+          </v-icon>
         </div>
         <div class="sidebar-m__contact">
-          <img class="sidebar-m__contact-svg" src="/icons/facebook.svg" alt="Viber" />
+          <img class="sidebar-m__contact-svg" src="/icons/facebook.svg" alt="Viber">
           <span style="flex-grow: 2">sdbond56</span>
-          <v-icon small>content_copy</v-icon>
+          <v-icon small>
+            content_copy
+          </v-icon>
         </div>
         <div class="sidebar-m__contact">
-          <img class="sidebar-m__contact-svg" src="/icons/youtube.svg" alt="Viber" />
+          <img class="sidebar-m__contact-svg" src="/icons/youtube.svg" alt="Viber">
           <span style="flex-grow: 2">HMBond</span>
-          <v-icon small>content_copy</v-icon>
+          <v-icon small>
+            content_copy
+          </v-icon>
         </div>
         <div class="sidebar-m__contact">
-          <img class="sidebar-m__contact-svg" src="/icons/instagram.svg" alt="Viber" />
+          <img class="sidebar-m__contact-svg" src="/icons/instagram.svg" alt="Viber">
           <span style="flex-grow: 2">sdBond</span>
-          <v-icon small>content_copy</v-icon>
+          <v-icon small>
+            content_copy
+          </v-icon>
         </div>
       </div>
     </aside>
-    <div class="sidebar-m-close" @click="$store.commit('togglers/toggleSidebar')"></div>
+    <div class="sidebar-m-close" @click="$store.commit('togglers/toggleSidebar')" />
   </div>
 </template>
 

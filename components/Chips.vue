@@ -17,18 +17,18 @@
 <script>
 export default {
   computed: {
-    chips() {
+    chips () {
       const array = []
       this.$store.state.product.categories
-        .filter((i) => i.isChosen)
-        .forEach((i) => array.push(i.title))
+        .filter(i => i.isChosen)
+        .forEach(i => array.push(i.title))
       this.$store.state.product.fixation
-        .filter((i) => i.isChosen)
-        .forEach((i) => array.push(i.title))
-      this.$store.state.product.prints.filter((i) => i.isChosen).forEach((i) => array.push(i.title))
+        .filter(i => i.isChosen)
+        .forEach(i => array.push(i.title))
+      this.$store.state.product.prints.filter(i => i.isChosen).forEach(i => array.push(i.title))
       return array
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -2,29 +2,31 @@
   <aside v-if="$store.state.togglers.isVisibleSidebarDesktop" class="sidebar">
     <div class="sidebar__social">
       <a class="sidebar__social-link v-btn">
-        <img src="/icons/instagram.svg" alt="Instagram" />
+        <img src="/icons/instagram.svg" alt="Instagram">
       </a>
       <a class="sidebar__social-link v-btn">
-        <img src="/icons/facebook.svg" alt="Facebook" />
+        <img src="/icons/facebook.svg" alt="Facebook">
       </a>
       <a class="sidebar__social-link v-btn">
-        <img src="/icons/youtube.svg" alt="Youtube" />
+        <img src="/icons/youtube.svg" alt="Youtube">
       </a>
       <a class="sidebar__social-link v-btn">
-        <img src="/icons/telegram.svg" alt="Telegram" />
+        <img src="/icons/telegram.svg" alt="Telegram">
       </a>
       <a class="sidebar__social-link v-btn">
-        <img src="/icons/viber.svg" alt="Viber" />
+        <img src="/icons/viber.svg" alt="Viber">
       </a>
       <a class="sidebar__social-link v-btn">
-        <img src="/icons/kyivstar.svg" alt="Kyivstar" />
+        <img src="/icons/kyivstar.svg" alt="Kyivstar">
       </a>
       <a class="sidebar__social-link v-btn">
-        <img src="/icons/vodafone.svg" alt="Vodafone" />
+        <img src="/icons/vodafone.svg" alt="Vodafone">
       </a>
     </div>
 
-    <h2 class="sidebar__title-filter">Фильтр продукиции<v-icon>filter_list</v-icon></h2>
+    <h2 class="sidebar__title-filter">
+      Фильтр продукиции<v-icon>filter_list</v-icon>
+    </h2>
 
     <Slider />
     <Filters />

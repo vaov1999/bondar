@@ -32,7 +32,7 @@
       </div>
       <v-btn
         v-if="
-          range[0] !== $store.state.product.minPrice || range[1] !== $store.state.product.maxPrice
+          range[0] !== $store.state.filter.minPrice || range[1] !== $store.state.filter.maxPrice
         "
         class="slider__accept"
         @click="$store.commit('changePrice', range)"
@@ -48,8 +48,8 @@ export default {
   name: 'Slider',
   data () {
     return {
-      min: this.$store.state.product.minPrice,
-      max: this.$store.state.product.maxPrice,
+      min: this.$store.state.filter.minPrice,
+      max: this.$store.state.filter.maxPrice,
       slider: 40,
       range: [0, 2500]
     }

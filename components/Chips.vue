@@ -19,13 +19,15 @@ export default {
   computed: {
     chips () {
       const array = []
-      this.$store.state.product.categories
+      this.$store.state.filter.categories.productTypes
         .filter(i => i.isChosen)
         .forEach(i => array.push(i.title))
-      this.$store.state.product.fixation
+      this.$store.state.filter.categories.fixation
         .filter(i => i.isChosen)
         .forEach(i => array.push(i.title))
-      this.$store.state.product.prints.filter(i => i.isChosen).forEach(i => array.push(i.title))
+      this.$store.state.filter.categories.prints
+        .filter(i => i.isChosen)
+        .forEach(i => array.push(i.title))
       return array
     }
   }

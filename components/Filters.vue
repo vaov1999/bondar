@@ -5,7 +5,7 @@
       <v-expansion-panel-content>
         <v-radio-group>
           <v-radio
-            v-for="i in $store.state.product.availabilityMode"
+            v-for="i in $store.state.filter.availabilityMode"
             :key="i.title"
             :label="i.title"
             @click="$store.commit('toggleAvailabilityMode', i.title)"
@@ -18,7 +18,7 @@
       <v-expansion-panel-content>
         <v-radio-group>
           <v-radio
-            v-for="i in $store.state.product.sortMode"
+            v-for="i in $store.state.filter.sortMode"
             :key="i.title"
             :label="i.title"
             @click="$store.commit('toggleSortMode', i.title)"
@@ -30,12 +30,11 @@
       <v-expansion-panel-header>Виды произведений</v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-checkbox
-          v-for="product in $store.state.product.categories"
+          v-for="product in $store.state.filter.categories.productTypes"
           :key="product.getter"
-          v-model="product.isChosen"
           hide-details="true"
           :label="product.title"
-          @click="$store.commit('toggleFilter', product.title)"
+          @click="$store.commit('toggleFilter', product.getter)"
         ></v-checkbox>
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -43,12 +42,11 @@
       <v-expansion-panel-header>Виды росписи</v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-checkbox
-          v-for="product in $store.state.product.prints"
+          v-for="product in $store.state.filter.categories.prints"
           :key="product.getter"
-          v-model="product.isChosen"
           hide-details="true"
           :label="product.title"
-          @click="$store.commit('toggleFilter', product.title)"
+          @click="$store.commit('toggleFilter', product.getter)"
         ></v-checkbox>
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -56,12 +54,11 @@
       <v-expansion-panel-header>Способы фиксации</v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-checkbox
-          v-for="product in $store.state.product.fixation"
+          v-for="product in $store.state.filter.categories.fixation"
           :key="product.getter"
-          v-model="product.isChosen"
           hide-details="true"
           :label="product.title"
-          @click="$store.commit('toggleFilter', product.title)"
+          @click="$store.commit('toggleFilter', product.getter)"
         ></v-checkbox>
       </v-expansion-panel-content>
     </v-expansion-panel>

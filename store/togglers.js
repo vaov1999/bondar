@@ -2,20 +2,20 @@ export const state = () => ({
   isVisibleSidebar: false,
   isVisibleSidebarDesktop: true,
   isVisibleSidebarFilter: false,
-  isVisibleSearchBar: false,
+  isVisibleSearchBar: false
 })
 
 export const mutations = {
-  toggleSidebar(state) {
+  toggleSidebar (state) {
     state.isVisibleSidebarMobile = !state.isVisibleSidebarMobile
   },
-  toggleSidebarDesktop(state) {
+  toggleSidebarDesktop (state) {
     state.isVisibleSidebarDesktop = !state.isVisibleSidebarDesktop
   },
-  toggleVisibleSidebarFilter(state) {
+  toggleVisibleSidebarFilter (state) {
     state.isVisibleSidebarFilter = !state.isVisibleSidebarFilter
   },
-  toggleVisibleSearchBar(state) {
+  toggleVisibleSearchBar (state) {
     state.isVisibleSearchBar = !state.isVisibleSearchBar
-  },
+  }
 }

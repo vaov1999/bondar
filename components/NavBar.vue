@@ -3,29 +3,39 @@
     <v-app-bar-nav-icon
       class="burger-mobile"
       @click="$store.commit('togglers/toggleSidebar')"
-    ></v-app-bar-nav-icon>
+    />
 
     <v-app-bar-nav-icon
       class="burger-desk"
       @click="$store.commit('togglers/toggleSidebarDesktop')"
-    ></v-app-bar-nav-icon>
+    />
 
     <v-bottom-navigation class="nav__buttons">
       <v-tabs class="nav__links">
         <v-tab>
-          <router-link class="nav__link" to="/">Магазин</router-link>
+          <router-link class="nav__link" to="/">
+            Магазин
+          </router-link>
         </v-tab>
         <v-tab>
-          <router-link class="nav__link" to="/">Автор</router-link>
+          <router-link class="nav__link" to="/">
+            Автор
+          </router-link>
         </v-tab>
         <v-tab>
-          <router-link class="nav__link" to="/">Заказать</router-link>
+          <router-link class="nav__link" to="/">
+            Заказать
+          </router-link>
         </v-tab>
         <v-tab>
-          <router-link class="nav__link" to="/">Контакты</router-link>
+          <router-link class="nav__link" to="/">
+            Контакты
+          </router-link>
         </v-tab>
         <v-tab>
-          <router-link class="nav__link" to="/">Помощь</router-link>
+          <router-link class="nav__link" to="/">
+            Помощь
+          </router-link>
         </v-tab>
       </v-tabs>
 
@@ -53,7 +63,7 @@
         label="Поиск"
         append-icon="search"
         @input="$store.commit('changeSearchString', searchString)"
-      ></v-text-field>
+      />
       <v-btn class="nav__button">
         <span>Корзина</span>
         <v-icon>shopping_basket</v-icon>
@@ -65,7 +75,7 @@
         label="Поиск"
         append-icon="search"
         @input="$store.commit('changeSearchString', searchString)"
-      ></v-text-field>
+      />
       <v-btn
         style="margin-left: 10px"
         icon
@@ -79,11 +89,11 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      searchString: '',
+      searchString: ''
     }
-  },
+  }
 }
 </script>
 
